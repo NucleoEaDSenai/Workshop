@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workshop Estágios - Firjan SENAI</title>
+  <style>
+    @font-face {
+      font-family: 'Averta';
+      src: url('fonts/averta-light.otf') format('opentype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Averta';
+      src: url('fonts/averta-regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    html {
+      box-sizing: border-box;
+      font-family: 'Averta', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+    html, body { min-height: 100%; width: 100%; margin: 0; padding: 0; }
+    body { background-color: #111; color: #fff; font-family: 'Averta', Arial, sans-serif; }
+
+    :root {
+      --bg:#120103;
+      --ink:#000;
+      --header:#00A3DD;
+      --header-hover:#000;
+      --label:#FFF;
+      --shadow:#111;
+      --container: 1200px;
+    }
+
+    .wrap {
+      position: relative;
+      min-height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      background: #000000;
+      color: #000000;
+      text-align: center;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 900;
+      background: var(--header);
+      box-shadow: 0 .5em 1em var(--shadow);
+    }
+
+    .nav {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem .75rem;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      color: var(--label);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .95rem;
+      padding: .4rem .8rem;
+      border-radius: .5rem;
+      transition: background .25s ease, color .25s ease;
+    }
+    .nav a:hover,
+    .nav a.active {
+      background: var(--header-hover);
+      color: #fff;
+    }
+
+    body.has-fixed-header { padding-top: var(--header-h); }
+    section { background-color: #000; scroll-margin-top: calc(var(--header-h) + 10px); }
+
+    .container {
+      width: min(95vw, var(--container));
+      margin: 0 auto;
+      padding: 0 0 50px 0;
+    }
+
+    h1 {
+      margin: .5em 0 1em;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 1px 1px 1px #333;
+      line-height: 1.2;
+      font-size: clamp(1.3rem, 5.5vw, 2rem);
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin: 0 auto 1rem;
+      color:#FFFFFF;
+      font-size:25px;
+      font-weight: bold;
+      padding: 10px 20px 0;
+      text-align: center;
+    }
+
+    .infos p {
+      color:#d8d8d8;
+      font-size:17px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .infos-text {
+  color: #fff;     
+  font-size: 17px;
+  padding: 0 20px;
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+    .listas {
+      text-align: left;
+      margin: 15px auto;
+      max-width: 760px;
+      font-size: 17px;
+      color: #d8d8d8;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
+    .grid { display:grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .card {
+      grid-column: span 12;
+      background: #0b0b0b;
+      border: 1px solid #1c1c1c;
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: left;
+      transition: background .3s ease, transform .2s ease, border-color .3s ease;
+    }
+    .card h3 { margin: 0 0 .5rem; font-size: 1.05rem; color: #eaeaea; transition: color .3s ease; }
+    .card p { margin: 0; color: #cfcfcf; font-size: .95rem; transition: color .3s ease; }
+    .card:hover { background: #00A3DD; border-color: #00A3DD; transform: translateY(-3px); }
+    .card:hover h3, .card:hover p { color: #fff; }
+
+    @media (min-width: 768px) { .card { grid-column: span 6; } }
+    @media (min-width: 1024px) { .card { grid-column: span 4; } }
+
+    .hero-banner { position: relative; width: 100%; overflow: hidden; }
+    .hero-banner img { width: 100%; height: auto; display: block; object-fit: cover; }
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.25);
+      z-index: 1;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      right: 150px;
+      transform: translateY(-50%);
+      text-align: left;
+      color: #fff;
+      padding: 1rem 1.25rem;
+      z-index: 2;
+      max-width: 90%;
+    }
+    @media (min-width: 768px) {
+      .hero-text { left: 60px; padding: 1rem 1.5rem; max-width: 60%; }
+    }
+    .hero-text h1 {
+      font-size: clamp(1.2rem, 3vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0;
+      color: #fff;
+    }
+    .hero-text h2 { display: block; }
+    @media (max-width: 767px) {
+      .hero-text h2 { display: none; }
+      .hero-text h1 { font-size: clamp(1.4rem, 5vw, 2rem); line-height: 1.4; }
+    }
+
+    footer.site-footer {
+      width: 100%;
+      background: var(--header);
+      box-shadow: 0 -.5em 1em var(--shadow);
+      padding: 1rem .75rem;
+    }
+    .footer-container {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+      gap: 10px;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .footer-text { margin: 0; font-size: 12px; color: #FFFFFF; text-align: center; }
+    .footer-logo { flex: 0 0 auto; display: block; max-width: 120px; height: auto; object-fit: contain; }
+    .spacer { height: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header aria-label="Menu">
+      <nav class="nav">
+        <a href="#topo">Home</a>
+        <a href="#inscricoes">Inscrições</a>
+        <a href="#programacao">Programação</a>
+      </nav>
+    </header>
+
+    <section id="topo" class="hero">
+      <div class="hero-banner">
+        <img src="img/banner.jpeg" alt="Banner Firjan SENAI" />
+        <div class="hero-text">
+          <h1>Firjan SENAI apresenta: <br>Conecte sua empresa aos talentos do futuro</h1><br>
+          <h2>Convidamos você e sua empresa para uma oportunidade exclusiva <br>dia
+            <strong style="font-size:30px">11/11/2025</strong></h2>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h1 class="section-title"><br><br>Sobre o Evento</h1>
+      <div class="infos">
+        <p><br>Participe no dia <strong>11/11/2025</strong> de uma apresentação especial dos nossos estagiários e jovens aprendizes capacitados em áreas estratégicas:</p>
+        <div class="listas">
+          🔹 Tecnologia da Informação<br>
+          🔹 Joalheria<br>
+          🔹 Design
+        </div>
+        <p><br><br>Esses jovens talentos do SENAI Rio, referência nacional em educação profissional, participam de Olimpíadas do Conhecimento, projetos práticos e eventos como o Mundo SENAI e o Hacker & Ética. <br>Assim, desenvolvem habilidades essenciais para o mercado, como:</p>
+        <div class="listas">
+          ✅ Maturidade emocional<br>
+          ✅ Adaptabilidade<br>
+          ✅ Colaboração e trabalho em equipe<br>
+          ✅ Responsabilidade técnica e social
+        </div>
+        <p><br><br>Por que sua empresa deve participar?</p>
+        <div class="listas">
+          ➡️ Alunos prontos para o mercado<br>
+          ➡️ Formação técnica de excelência<br>
+          ➡️ Sem custos de taxas administrativas<br>
+          ➡️ Disponibilidade imediata para contratação
+        </div>
+      </div>
+    </section>
+
+    <section id="inscricoes">
+      <div class="container" style="padding: 60px;">
+        <h1 class="section-title">Inscrições</h1>
+        <div class="spacer"></div>
+        <iframe src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=1JjG0Ork6U6nnfLXp4OZyHXQrQazwutBvaZvc2uaijpURDdaTFhRWDUxNFRTOTM5MTBWQzZVT005TS4u&embed=true"
+          style="width:100%;max-width:700px;height:958px;border:0;border-radius:12px;"></iframe>
+      </div>
+    </section>
+
+    <section id="programacao">
+      <div class="container">
+        <h1 class="section-title">Programação</h1>
+        <p class="infos-text">Conheça a programação do Workshop Estágios, com horários e detalhes das atividades planejadas.</p>
+        <div class="grid">
+          <article class="card">
+            <h3>08:30 – Credenciamento</h3>
+            <p>Recepção dos participantes e orientações iniciais.</p>
+          </article>
+          <article class="card">
+            <h3>09:00 – Abertura</h3>
+            <p>Boas-vindas e contextualização do Workshop.</p>
+          </article>
+          <article class="card">
+            <h3>09:30 – Palestrante 1</h3>
+            <p>Vai falar sobre o assunto xxx e mostrará xxx case</p>
+          </article>
+          <article class="card">
+            <h3>10:30 – Palestrante 2</h3>
+            <p>Vai falar sobre o assunto xxx e mostrará xxx case</p>
+          </article>
+          <article class="card">
+            <h3>11:00 – Palestrante 3</h3>
+            <p>Vai falar sobre o assunto xxx e mostrará xxx case</p>
+          </article>
+          <article class="card">
+            <h3>12:00 – Encerramento</h3>
+            <p>Vai falar sobre o assunto xxx e mostrará xxx case</p>
+          </article>
+          <br><br>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-container">
+        <p class="footer-text">© Copyright 2025 - Todos os direitos reservados à Firjan SENAI</p>
+        <img class="footer-logo" src="img/logo.png" alt="Logo Núcleo EAD SENAI Maracanã">
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function setHeaderHeight() {
+      const header = document.querySelector('header');
+      const h = header ? header.offsetHeight : 68;
+      document.documentElement.style.setProperty('--header-h', h + 'px');
+      document.body.classList.add('has-fixed-header');
+    }
+    window.addEventListener('load', setHeaderHeight);
+    window.addEventListener('resize', setHeaderHeight);
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav a');
+    const byId = {};
+    navLinks.forEach(a => { byId[a.getAttribute('href').replace('#','')] = a; });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        const link = byId[id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          link.classList.add('active');
+          navLinks.forEach(a => a.removeAttribute('aria-current'));
+          link.setAttribute('aria-current','page');
+        }
+      });
+    }, {
+      rootMargin: `-${parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) + 20}px 0px -60% 0px`,
+      threshold: 0.25
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>
